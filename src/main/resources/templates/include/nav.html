@@ -1,0 +1,14 @@
+<div  th:fragment="common_nav" th:remove="tag">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ROOM</a>
+    </div>
+  </div>
+</div>
+<div class="row message">
+  <div th:if="${param.error}" class="alert alert-danger">
+    <span class="glyphicon glyphicon-remove"></span> Invalid username and password.
+  </div>
+</div>
+</div>

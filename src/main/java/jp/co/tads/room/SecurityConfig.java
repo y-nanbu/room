@@ -39,15 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        String[] ignoreUriList = new String[5];
+        String[] ignoreUriList = new String[6];
         ignoreUriList[0] = "/font/**";
         ignoreUriList[1] = "/css/**";
         ignoreUriList[2] = "/js/**";
         ignoreUriList[3] = "/api/**";
+        ignoreUriList[4] = "/webjars/**";
 
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
         if (!profiles.contains("production") || !profiles.contains("staging")) {
-            ignoreUriList[4] = "/env/**";
+            ignoreUriList[5] = "/env/**";
         }
 
         web.ignoring().antMatchers(ignoreUriList);
