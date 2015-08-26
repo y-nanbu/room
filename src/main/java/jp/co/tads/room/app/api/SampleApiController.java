@@ -1,5 +1,6 @@
 package jp.co.tads.room.app.api;
 
+import static jp.co.tads.room.common.Factories.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class SampleApiController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public String hello() {
-        return "HELLO!!";
+        return createJsonString("HELLO!!");
     }
 
 }
