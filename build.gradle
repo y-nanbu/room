@@ -53,10 +53,16 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-databind:2.3.4")
 
     // mongeez
-    compile("io.github.hzpz.spring.boot:mongeez-spring-boot-starter:1.0.0")
-    compile("org.mongeez:mongeez:0.9.4")
+//    compile("io.github.hzpz.spring.boot:mongeez-spring-boot-starter:1.0.0")
+//    compile("org.mongeez:mongeez:0.9.4")
 
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
+}
+
+bootRun {
+    if ( project.hasProperty('args') ) {
+        args project.args.split('\\s+')
+    }
 }
 
 task wrapper(type: Wrapper) {
