@@ -3,6 +3,7 @@ package jp.co.tads.room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 認証・認可に関するコンフィグクラスです。
  *
@@ -23,6 +27,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    Environment env;
+
     /**
      * リクエストに対するセキュリティ設定を行います。
      *
@@ -31,7 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/fonts/**", "/css/**", "/js/**", "/api/**");
+
+        String[] ignoreUriList = new String[5];
+        ignoreUriList[0] = "/font/**";
+        ignoreUriList[1] = "/css/**";
+        ignoreUriList[2] = "/js/**";
+        ignoreUriList[3] = "/api/**";
+
+        List<String> profiles = Arrays.asList(env.getActiveProfiles());
+        if (!profiles.contains("production") || !profiles.contains("staging")) {
+            ignoreUriList[4] = "/env/**";
+        }
+
+        web.ignoring().antMatchers(ignoreUriList);
     }
 
     /**
