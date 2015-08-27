@@ -19,6 +19,7 @@ ext {
     javaVersion      = '1.8'
     jacksonVersion   = '2.3.4'
     encoding         = 'UTF-8'
+    lombokVersion    = '1.16.6'
 }
 
 jar {
@@ -52,10 +53,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.webjars:bootstrap:${bootstrapVersion}")
     compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+    compile("org.projectlombok:lombok:${lombokVersion}")
 
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
 }
