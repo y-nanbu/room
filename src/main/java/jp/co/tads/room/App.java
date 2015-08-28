@@ -1,7 +1,10 @@
 package jp.co.tads.room;
 
+import jp.co.tads.room.infra.jdbc.JdbcManager;
+import jp.co.tads.room.infra.jdbc.JdbcManagerImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * アプリケーションのエントリ・ポイントです。
@@ -34,5 +37,10 @@ public class App {
      */
     public static void main(String[] args) {
         SpringApplication.run(App.class);
+    }
+
+    @Bean
+    public JdbcManager jdbcManager() {
+        return new JdbcManagerImpl();
     }
 }
