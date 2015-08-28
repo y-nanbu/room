@@ -7,8 +7,12 @@
   </div>
 </div>
 <div class="row message">
-  <div th:if="${param.error}" class="alert alert-danger">
-    <span class="glyphicon glyphicon-remove"></span> Invalid username and password.
+  <div th:if="${errors}" class="alert alert-danger">
+    <p th:each="error : ${errors}">
+      <span class="glyphicon glyphicon-remove"></span>
+      <span th:text="${error}"></span>
+    </p>
+
   </div>
 </div>
 </div>

@@ -36,4 +36,16 @@ public final class Factories {
             throw new AppException(e);
         }
     }
+
+    /**
+     * 代入先の型に合わせて型変換を行います。
+     *
+     * @param o 任意のオブジェクト
+     * @param <E> 任意の型
+     * @return 任意の型
+     */
+    @SuppressWarnings("unchecked")
+    public static <E> E cast(Object o) {
+        return (E) o;
+    }
 }

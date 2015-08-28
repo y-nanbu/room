@@ -1,6 +1,7 @@
 package jp.co.tads.room.app.domain.service.login;
 
 import jp.co.tads.room.app.form.LoginForm;
+import jp.co.tads.room.exception.AppException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,6 @@ public class LoginService {
      * @param loginForm リクエストフォーム
      */
     public void authenticate(LoginForm loginForm) {
-
+        throw new AppException("現在，利用できない機能です。");
     }
 }

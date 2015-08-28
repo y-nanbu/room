@@ -3,7 +3,6 @@ package jp.co.tads.room.app.controller;
 import jp.co.tads.room.app.controller.base.ControllerBase;
 import jp.co.tads.room.app.domain.service.login.LoginService;
 import jp.co.tads.room.app.form.LoginForm;
-import jp.co.tads.room.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +47,6 @@ public class LoginController extends ControllerBase {
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     String authentication(@Validated LoginForm loginForm, BindingResult result, Model model) {
         service.authenticate(loginForm);
-        if (true) {
-            throw new AppException("このメッセージはFlashオブジェクトに格納されるべきです。");
-        }
         return "redirect:/chatroom";
     }
 }
