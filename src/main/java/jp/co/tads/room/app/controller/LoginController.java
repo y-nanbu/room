@@ -1,6 +1,7 @@
 package jp.co.tads.room.app.controller;
 
 import jp.co.tads.room.app.controller.base.ControllerBase;
+import jp.co.tads.room.app.domain.model.User;
 import jp.co.tads.room.app.domain.service.login.LoginService;
 import jp.co.tads.room.app.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class LoginController extends ControllerBase {
      */
     @RequestMapping(method = RequestMethod.GET)
     String loginForm() {
+        User user = userDetails.getUserPrincipal();
         return "login/loginForm";
     }
 
@@ -46,7 +48,8 @@ public class LoginController extends ControllerBase {
      */
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     String authentication(@Validated LoginForm loginForm, BindingResult result, Model model) {
-        service.authenticate(loginForm);
-        return "redirect:/chatroom";
+        User user = service.authenticate(loginForm);
+        userDetails.init(user);
+        return "redirect:/login";
     }
 }

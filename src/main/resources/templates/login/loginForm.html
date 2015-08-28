@@ -11,8 +11,8 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <form class="form-signin" method="post" th:object="${loginForm}" th:action="@{/login/auth}">
-        <label for="username" class="sr-only">Username</label>
-        <input type="text" th:field="*{username}" id="username" class="form-control" placeholder="Username"/>
+        <label for="id" class="sr-only">User ID</label>
+        <input type="text" th:field="*{id}" id="id" class="form-control" placeholder="User ID"/>
         <label for="password" class="sr-only">Password</label>
         <input type="password" th:field="*{password}" id="password" class="form-control" placeholder="Password"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

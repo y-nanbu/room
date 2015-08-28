@@ -1,9 +1,10 @@
 package jp.co.tads.room.app.domain.service.login;
 
-import jp.co.tads.room.app.domain.model.Account;
+import jp.co.tads.room.app.domain.model.User;
 import jp.co.tads.room.app.form.LoginForm;
 import jp.co.tads.room.exception.AppException;
 import jp.co.tads.room.infra.jdbc.JdbcManager;
+import jp.co.tads.room.infra.security.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,17 @@ public class LoginService {
      * 認証処理を行います。
      *
      * @param loginForm リクエストフォーム
+     * @return 認証許可したユーザ情報
      */
-    public void authenticate(LoginForm loginForm) {
+    public User authenticate(LoginForm loginForm) {
         Map<String, Object> param = new HashMap<>();
-        param.put(Account.ID, loginForm.getUsername());
-        param.put(Account.PASSWORD, loginForm.getPassword());
+        param.put(User.ID, loginForm.getId());
+        param.put(User.PASSWORD, loginForm.getPassword());
 
-        Account account = jdbcManager.findOne(Account.class, param);
-        if (account == null) {
-            throw new AppException("ユーザ名、パスワードが正しくありません。");
+        User user = jdbcManager.findOne(User.class, param);
+        if (user == null || !user.getPassword().equals(loginForm.getPassword())) {
+            throw new AppException("アカウントID、パスワードが正しくありません。");
         }
+        return user;
     }
 }
