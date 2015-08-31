@@ -15,8 +15,9 @@ import java.sql.Timestamp;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-@Table("users")
 public class User extends AbstractEntity {
+
+    public static final String TABLE_NAME = "users";
 
     public static final String ID = "id";
 

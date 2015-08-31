@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jp.co.tads.room.exception.AppException;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 様々なオブジェクトを生成するためのユーティリティクラスです。
  *
@@ -47,5 +51,12 @@ public final class Factories {
     @SuppressWarnings("unchecked")
     public static <E> E cast(Object o) {
         return (E) o;
+    }
+
+    @SafeVarargs
+    public static <E> List<E> list(E... objects) {
+        List<E> list = new ArrayList<>();
+        Collections.addAll(list, objects);
+        return list;
     }
 }
