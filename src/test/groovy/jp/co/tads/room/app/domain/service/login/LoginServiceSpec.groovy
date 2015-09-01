@@ -1,6 +1,5 @@
 package jp.co.tads.room.app.domain.service.login
 
-import jp.co.tads.room.app.domain.model.User
 import jp.co.tads.room.app.form.LoginForm
 import jp.co.tads.room.common.SpockBase
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,21 +14,31 @@ import org.springframework.transaction.annotation.Transactional
 class LoginServiceSpec extends SpockBase {
 
     @Autowired
-    LoginService loginService
+    public LoginService loginService
 
     @Transactional
     @Rollback
     def "ログイン情報が一件取得できること"() {
         setup:
+        jdbcTemplate.execute("""
+            INSERT INTO users (
+                id, name, password, updated_at, created_at, last_updated
+            ) VALUES (
+                '9999',
+                'username',
+                'password',
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP,
+                'test'
+            )
+        """);
+
         LoginForm loginForm = new LoginForm()
-        loginForm.setId("1")
-        loginForm.setPassword("hasegawa")
+        loginForm.setId("9999")
+        loginForm.setPassword("password")
 
-        when:
-        User user = loginService.findUser(loginForm)
-
-        then:
-        user != null
+        expect:
+        loginService.findUser(loginForm) != null
 
     }
 

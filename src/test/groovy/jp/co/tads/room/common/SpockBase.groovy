@@ -2,6 +2,7 @@ package jp.co.tads.room.common
 
 import jp.co.tads.room.infra.jdbc.JdbcManager
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
@@ -9,5 +10,8 @@ import spock.lang.Specification
 class SpockBase extends Specification {
 
     @Autowired
-    JdbcManager jdbcManager;
+    JdbcTemplate jdbcTemplate
+
+    @Autowired
+    JdbcManager jdbcManager
 }
