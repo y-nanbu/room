@@ -13,6 +13,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: "jacoco"
 
 ext {
     bootstrapVersion = '3.2.0'
@@ -61,6 +62,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
 
+    // unit test
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
 }
 
@@ -76,4 +79,9 @@ bootRun {
 // `gradle production bootRun`
 task production << {
     bootRun.systemProperty 'spring.profiles.active', 'production'
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/customJacocoReportDir")
 }
