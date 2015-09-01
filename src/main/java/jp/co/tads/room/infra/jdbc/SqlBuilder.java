@@ -15,39 +15,13 @@ public class SqlBuilder {
 
     private Map<String, Object> params = new HashMap<>();
 
-    private static final String SELECT = "SELECT";
-
-    private static final String UPDATE = "UPDATE";
-
-    private static final String INSERT = "INSERT";
-
-    private static final String DELETE = "DELETE";
-
-    private String sqlType = null;
-
-    public static final String ALL = "*";
-
     protected SqlBuilder() {}
 
-    public static SqlBuilder select() {
+    public static SqlBuilder select(String... columnNames) {
         SqlBuilder sb = new SqlBuilder();
-        sb.setSqlType(SELECT);
+        List<String> columns = Factories.list(columnNames);
+        sb.addSelect(columns);
         return sb;
-    }
-
-    public SqlBuilder columns(String... columnName) {
-        List<String> columns = Factories.list(columnName);
-        if (getSqlType().equals(SELECT)) {
-            query.append(" ");
-            query.append(String.join(", ", columns));
-        }
-        return this;
-    }
-
-    public SqlBuilder columnsAll() {
-        query.append(" ");
-        query.append(ALL);
-        return this;
     }
 
     public SqlBuilder from(String tableName) {
@@ -74,24 +48,17 @@ public class SqlBuilder {
         return this;
     }
 
-    private void append(String s) {
-        this.query.append(s);
-    }
 
     public Map<String, Object> getParams() {
         return params;
     }
 
-    public String getSqlType() {
-        return sqlType;
-    }
-
-    private void setSqlType(String sqlType) {
-        this.sqlType = sqlType;
-        append(sqlType);
-    }
-
     public String getQuery() {
         return query.toString();
+    }
+
+    private void addSelect(List<String> columns) {
+        this.query.append("SELECT ");
+        this.query.append(String.join(", ", columns));
     }
 }

@@ -1,5 +1,6 @@
 package jp.co.tads.room.app.domain.service.login;
 
+import static jp.co.tads.room.common.Factories.*;
 import static jp.co.tads.room.infra.jdbc.SqlBuilder.*;
 
 import jp.co.tads.room.app.domain.model.User;
@@ -27,22 +28,21 @@ public class LoginService {
      * @return 認証許可したユーザ情報
      */
     public User authenticate(LoginForm loginForm) {
+        User param = new User();
+        copy(loginForm, param);
         User user = jdbcManager.findOne(User.class,
-                select()
-                        .columns(
-                                User.ID,
-                                User.NAME,
-                                User.PASSWORD
-                        )
-                        .from(
-                                User.TABLE_NAME
-                        )
-                        .where()
-                        .eq(User.ID,        loginForm.getId()).and()
-                        .eq(User.PASSWORD,  loginForm.getPassword())
+                select(
+                        User.ID,
+                        User.NAME,
+                        User.PASSWORD
+                ).from(
+                        User.TABLE_NAME
+                ).where()
+                        .eq(User.ID,        param.getId()).and()
+                        .eq(User.PASSWORD,  param.getPassword())
         );
 
-        if (user == null || !user.getPassword().equals(loginForm.getPassword())) {
+        if (user == null) {
             throw new AppException("アカウントID、パスワードが正しくありません。");
         }
         return user;

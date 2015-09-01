@@ -3,6 +3,7 @@ package jp.co.tads.room.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jp.co.tads.room.exception.AppException;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,5 +59,9 @@ public final class Factories {
         List<E> list = new ArrayList<>();
         Collections.addAll(list, objects);
         return list;
+    }
+
+    public static void copy(Object src, Object dist) {
+        BeanUtils.copyProperties(src, dist);
     }
 }
