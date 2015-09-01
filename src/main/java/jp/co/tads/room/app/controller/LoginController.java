@@ -1,5 +1,7 @@
 package jp.co.tads.room.app.controller;
 
+import static jp.co.tads.room.common.Factories.*;
+
 import jp.co.tads.room.app.controller.base.ControllerBase;
 import jp.co.tads.room.app.domain.model.User;
 import jp.co.tads.room.app.domain.service.login.LoginService;
@@ -36,8 +38,7 @@ public class LoginController extends ControllerBase {
      * @return 表示するHTMLファイルのパス
      */
     @RequestMapping(method = RequestMethod.GET)
-    String loginForm() {
-        User user = userDetails.getUserPrincipal();
+    String loginForm(Model model) {
         return "login/loginForm";
     }
 
@@ -48,7 +49,17 @@ public class LoginController extends ControllerBase {
      */
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     String authentication(@Validated LoginForm loginForm, BindingResult result, Model model) {
-        User user = service.authenticate(loginForm);
+        if (result.hasErrors()) {
+            setErrorMessages(model, list(accessor.getMessage("W0002")));
+            return loginForm(model);
+        }
+
+        User user = service.findUser(loginForm);
+        if (user == null) {
+            setErrorMessages(model, list(accessor.getMessage("W0003")));
+            return loginForm(model);
+        }
+
         userDetails.init(user);
         return "redirect:/login";
     }
