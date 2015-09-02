@@ -34,18 +34,15 @@ public class LoginController extends ControllerBase {
 
     /**
      * ログインフォーム画面を表示します。
-     *
-     * @return 表示するHTMLファイルのパス
      */
     @RequestMapping(method = RequestMethod.GET)
     String loginForm(Model model) {
+        setPageTitle(model, "ログイン");
         return "login/loginForm";
     }
 
     /**
      * 認証処理を実行します。
-     *
-     * @return リダイレクトパス
      */
     @RequestMapping(value = "auth", method = RequestMethod.POST)
     String authentication(@Validated LoginForm loginForm, BindingResult result, Model model) {
@@ -61,6 +58,6 @@ public class LoginController extends ControllerBase {
         }
 
         userDetails.init(user);
-        return "redirect:/login";
+        return "redirect:/room";
     }
 }

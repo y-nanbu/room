@@ -4,6 +4,11 @@ import jp.co.tads.room.infra.jdbc.JdbcManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * サービスクラスの基底クラスです。
+ *
+ * @author TAS
+ */
 @Service
 public class ServiceBase {
 

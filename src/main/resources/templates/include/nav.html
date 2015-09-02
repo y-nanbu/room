@@ -3,6 +3,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">ROOM</a>
+      <p class="navbar-text" th:text="${pageTitle}"></p>
     </div>
   </div>
 </div>
@@ -11,6 +12,12 @@
     <p th:each="error : ${errors}">
       <span class="glyphicon glyphicon-remove"></span>
       <span th:text="${error}"></span>
+    </p>
+  </div>
+  <div th:if="${messages}" class="alert alert-success">
+    <p th:each="message : ${messages}">
+      <span class="glyphicon glyphicon-ok"></span>
+      <span th:text="${message}"></span>
     </p>
   </div>
 </div>
