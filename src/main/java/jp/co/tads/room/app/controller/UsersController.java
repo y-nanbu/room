@@ -5,6 +5,7 @@ import static jp.co.tads.room.common.Factories.*;
 import jp.co.tads.room.app.controller.base.ControllerBase;
 import jp.co.tads.room.app.domain.service.users.UsersService;
 import jp.co.tads.room.app.form.UsersForm;
+import jp.co.tads.room.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +47,18 @@ public class UsersController extends ControllerBase {
      */
     @RequestMapping(value = "create", method = RequestMethod.POST)
     String create(@Validated UsersForm usersForm, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            setErrorMessages(model, list(accessor.getMessage("W0002")));
+            return newUser(model);
+        }
+
+        try {
+            service.createUser(usersForm);
+        } catch (AppException e) {
+            setErrorMessages(model, list(e.getMessage()));
+            return newUser(model);
+        }
+
         setRedirectMessages(redirectAttributes, list(accessor.getMessage("I0001")));
         return "redirect:/login";
     }

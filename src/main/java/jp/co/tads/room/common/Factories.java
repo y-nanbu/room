@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jp.co.tads.room.exception.AppException;
 import org.springframework.beans.BeanUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * 様々なオブジェクトを生成するためのユーティリティクラスです。
@@ -56,12 +55,21 @@ public final class Factories {
 
     @SafeVarargs
     public static <E> List<E> list(E... objects) {
-        List<E> list = new ArrayList<>();
+        List<E> list = new LinkedList<>();
         Collections.addAll(list, objects);
         return list;
     }
 
+    public static LinkedHashMap<String, Object> map() {
+        return new LinkedHashMap<String, Object>();
+    }
+
     public static void copy(Object src, Object dist) {
         BeanUtils.copyProperties(src, dist);
+    }
+
+    public static Timestamp systimestamp() {
+        Date date = new Date();
+        return new Timestamp(date.getTime());
     }
 }

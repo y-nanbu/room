@@ -2,9 +2,7 @@ package jp.co.tads.room.infra.jdbc;
 
 import jp.co.tads.room.common.Factories;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * SQLビルダークラスです。
@@ -24,26 +22,61 @@ public class SqlBuilder {
         return sb;
     }
 
+    public static SqlBuilder into(String tableName) {
+        SqlBuilder sb = new SqlBuilder();
+        sb.addInsert(tableName);
+        return sb;
+    }
+
+    private void columns(List<String> columns) {
+        this.query
+                .append("(")
+                .append(String.join(", ", columns))
+                .append(")");
+    }
+
+    public SqlBuilder values(Map<String, Object> values) {
+        List<String> valuesList = new LinkedList<>();
+        values.forEach((k, v) -> valuesList.add(k));
+        columns(valuesList);
+
+        this.query.append(" VALUES (");
+        int i = 0;
+        for(String valueName : valuesList) {
+            if (i != 0) {
+                this.query.append(", ");
+            }
+            this.query.append(":").append(valueName);
+            i++;
+        }
+        this.params.putAll(values);
+        this.query.append(")");
+        return this;
+    }
+
+
     public SqlBuilder from(String tableName) {
-        query.append(" FROM ");
-        query.append(tableName);
+        this.query
+                .append(" FROM ")
+                .append(tableName);
         return this;
     }
 
     public SqlBuilder where() {
-        query.append(" WHERE ");
+        this.query.append(" WHERE ");
         return this;
     }
 
     public SqlBuilder and() {
-        query.append(" AND ");
+        this.query.append(" AND ");
         return this;
     }
 
     public SqlBuilder eq(String column, Object value) {
-        query.append(column);
-        query.append( "= :");
-        query.append(column);
+        this.query
+                .append(column)
+                .append( "= :")
+                .append(column);
         params.put(column, value);
         return this;
     }
@@ -58,7 +91,15 @@ public class SqlBuilder {
     }
 
     private void addSelect(List<String> columns) {
-        this.query.append("SELECT ");
-        this.query.append(String.join(", ", columns));
+        this.query
+                .append("SELECT ")
+                .append(String.join(", ", columns));
+    }
+
+    private void addInsert(String tableName) {
+        this.query
+                .append("INSERT INTO ")
+                .append(tableName)
+                .append(" ");
     }
 }

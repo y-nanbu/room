@@ -29,4 +29,9 @@ public class JdbcManagerImpl implements JdbcManager {
             }
         }
     }
+
+    @Override
+    public void insert(SqlBuilder sb) {
+        jdbcTemplate.update(sb.getQuery(), sb.getParams());
+    }
 }

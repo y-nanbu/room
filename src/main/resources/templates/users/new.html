@@ -13,17 +13,20 @@
         <h2>ユーザ新規作成</h2>
       </div>
       <form class="form" method="post" th:object="${usersForm}" th:action="@{/users/create}">
-        <div class="form-group">
+        <div th:class="${#fields.hasErrors('id')} ? 'form-group has-error' : 'form-group'">
           <label for="users-id">ユーザID</label>
           <input type="text" th:field="*{id}" id="users-id" class="form-control" placeholder="ユーザID"/>
+          <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="label label-danger">validation error</p>
         </div>
-        <div class="form-group">
+        <div th:class="${#fields.hasErrors('name')} ? 'form-group has-error' : 'form-group'">
           <label for="users-name">ユーザ名</label>
           <input type="text" th:field="*{name}" id="users-name" class="form-control" placeholder="ユーザ名"/>
+          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger">validation error</p>
         </div>
-        <div class="form-group">
+        <div th:class="${#fields.hasErrors('password')} ? 'form-group has-error' : 'form-group'">
           <label for="users-password">パスワード</label>
-          <input type="text" th:field="*{password}" id="users-password" class="form-control" placeholder="パスワード"/>
+          <input type="password" th:field="*{password}" id="users-password" class="form-control" placeholder="パスワード"/>
+          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="label label-danger">validation error</p>
         </div>
         <button id="login-btn" class="btn btn-lg btn-primary btn-block" type="submit">新規作成</button>
       </form>
