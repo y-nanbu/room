@@ -6,7 +6,7 @@ beans {
 
     dataSource(DriverManagerDataSource) {
         driverClassName = "org.postgresql.Driver"
-        url = "jdbc:postgresql://172.17.20.221:5432/room-dev"
+        url = "jdbc:postgresql://172.17.20.221:5432/room-ut"
         username = "room-db"
         password = "room-db"
     }

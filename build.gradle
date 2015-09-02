@@ -21,6 +21,7 @@ ext {
     jacksonVersion   = '2.3.4'
     encoding         = 'UTF-8'
     lombokVersion    = '1.16.6'
+    flywayVersion    = '3.2.1'
 }
 
 jar {
@@ -61,6 +62,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
+    compile("org.flywaydb:flyway-core:${flywayVersion}")
 
     // unit test
     testCompile("org.springframework.boot:spring-boot-starter-test")
