@@ -32,7 +32,7 @@ public class SessionFilter implements Filter {
         String contextPath = httpServletRequest.getContextPath();
         String uri = httpServletRequest.getRequestURI();
 
-        if (isAnyStartWith(uri, "/login", "/webjar", "/css", "/js")) {
+        if (isAnyStartWith(uri, "/login", "/webjar", "/css", "/js", "/users/new", "/users/create")) {
             chain.doFilter(request, response);
         } else {
             if (userDetails == null) {

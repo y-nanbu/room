@@ -62,7 +62,6 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
-    compile("org.flywaydb:flyway-core:${flywayVersion}")
 
     // unit test
     testCompile("org.springframework.boot:spring-boot-starter-test")

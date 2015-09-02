@@ -1,0 +1,27 @@
+.container-fluid {
+    font-size: 90%;
+}
+#comment-form {
+    position: absolute;
+    bottom: 0;
+}
+form {
+    margin-bottom: 40px;
+}
+.page-header {
+    margin: 0;
+    padding-bottom: 0;
+}
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    display: block;
+    padding: 5px 20px 20px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-left: 1px solid #eee;
+}
