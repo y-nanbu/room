@@ -3,8 +3,6 @@ package jp.co.tads.room.app.form;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * ログイン画面のフォームクラスです。
  *
@@ -13,9 +11,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LoginForm {
 
+    /** ログインID */
     @NotBlank(message = "{W0001}")
     private String id;
 
+    /** パスワード */
     @NotBlank(message = "{W0001}")
     private String password;
 

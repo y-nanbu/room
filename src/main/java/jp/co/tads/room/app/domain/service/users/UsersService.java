@@ -22,6 +22,20 @@ import java.util.Map;
 @Transactional
 public class UsersService extends ServiceBase {
 
+    /**
+     * ユーザを作成します。
+     *
+     * <p>
+     *     既に存在するユーザIDが指定されている場合は，
+     *     {@link jp.co.tads.room.exception.AppException AppException}が発生します。
+     * </p>
+     *
+     * <p>
+     *     本メソッドを呼び出す場合，適切にAppExceptionを処理してください。
+     * </p>
+     *
+     * @param form リクエストフォーム
+     */
     public void createUser(UsersForm form) {
         User paramUser = new User();
         BeanUtils.copyProperties(form, paramUser);

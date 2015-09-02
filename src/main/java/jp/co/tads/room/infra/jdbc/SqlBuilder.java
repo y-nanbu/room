@@ -6,6 +6,8 @@ import java.util.*;
 
 /**
  * SQLビルダークラスです。
+ *
+ * @author TAS
  */
 public class SqlBuilder {
 

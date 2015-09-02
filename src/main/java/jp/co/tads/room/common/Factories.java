@@ -53,6 +53,13 @@ public final class Factories {
         return (E) o;
     }
 
+    /**
+     * 指定の引数を要素としてLinkedListを返します。
+     *
+     * @param objects Listの要素
+     * @param <E> 任意の型
+     * @return LinkedList
+     */
     @SafeVarargs
     public static <E> List<E> list(E... objects) {
         List<E> list = new LinkedList<>();
@@ -60,14 +67,31 @@ public final class Factories {
         return list;
     }
 
+    /**
+     * LinkedHashMapを生成するためのファクトリメソッドです。
+     *
+     * @return 空のLinkedHashMap
+     */
     public static LinkedHashMap<String, Object> map() {
         return new LinkedHashMap<String, Object>();
     }
 
+    /**
+     * オブジェクトのコピーを行います。
+     *
+     * @see org.springframework.beans.BeanUtils#copyProperties(Object, Object)
+     * @param src コピー元
+     * @param dist コピー先
+     */
     public static void copy(Object src, Object dist) {
         BeanUtils.copyProperties(src, dist);
     }
 
+    /**
+     * システムタイムスタンプを返します。
+     *
+     * @return 現在日時のタイムスタンプ
+     */
     public static Timestamp systimestamp() {
         Date date = new Date();
         return new Timestamp(date.getTime());
