@@ -31,7 +31,10 @@ public class LoginService extends ServiceBase {
                 select(
                         User.ID,
                         User.NAME,
-                        User.PASSWORD
+                        User.PASSWORD,
+                        User.CREATED_AT,
+                        User.UPDATED_AT,
+                        User.LAST_UPDATED
                 ).from(
                         User.TABLE_NAME
                 ).where()
