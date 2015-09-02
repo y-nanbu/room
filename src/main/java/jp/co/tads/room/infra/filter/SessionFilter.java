@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * セッションの状態を確認するフィルタークラスです。
+ *
+ * @author TAS
+ */
 public class SessionFilter implements Filter {
 
     @Override
