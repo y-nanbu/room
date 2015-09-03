@@ -1,6 +1,5 @@
 package jp.co.tads.room.app.controller.base;
 
-import jp.co.tads.room.infra.security.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.ui.Model;
@@ -16,10 +15,6 @@ import java.util.List;
  * @author TAS
  */
 public class ControllerBase {
-
-    /** ログインユーザ情報 */
-    @Autowired
-    public UserDetails userDetails;
 
     /** メッセージアクセサ */
     @Autowired

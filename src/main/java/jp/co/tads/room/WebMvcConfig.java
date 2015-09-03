@@ -1,7 +1,5 @@
 package jp.co.tads.room;
 
-import jp.co.tads.room.infra.filter.SessionFilter;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -37,12 +35,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public Validator getValidator() {
         return validator();
-    }
-
-    @Bean
-    public FilterRegistrationBean getFilterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(new SessionFilter());
-        return filterRegistrationBean;
     }
 }

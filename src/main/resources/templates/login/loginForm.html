@@ -13,7 +13,7 @@
       <div class="page-header">
         <h2>ログイン</h2>
       </div>
-      <form class="form-signin" method="post" th:object="${loginForm}" th:action="@{/login/auth}">
+      <form class="form-signin" method="post" th:object="${loginForm}" th:action="@{/login}">
         <div th:class="${#fields.hasErrors('id')} ? 'form-group has-error' : 'form-group'">
           <input type="text" th:field="*{id}" id="id" class="form-control" placeholder="ユーザID"/>
           <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="label label-danger">validation error</p>

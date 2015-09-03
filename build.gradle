@@ -56,12 +56,14 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.webjars:bootstrap:${bootstrapVersion}")
     compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
     compile("org.projectlombok:lombok:${lombokVersion}")
 
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
+    compile("org.flywaydb:flyway-core:${flywayVersion}")
 
     // unit test
     testCompile("org.springframework.boot:spring-boot-starter-test")
