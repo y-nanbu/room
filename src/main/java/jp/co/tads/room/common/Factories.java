@@ -96,4 +96,16 @@ public final class Factories {
         Date date = new Date();
         return new Timestamp(date.getTime());
     }
+
+    /**
+     * 指定のオブジェクトをJSON文字列に変換します。
+     * @param object 変換対象のオブジェクト
+     * @param <E> 任意の型
+     * @return JSON文字列
+     * @throws JsonProcessingException JSON文字列への変換に失敗した場合。
+     */
+    public static <E> String toJsonString(E object) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
+    }
 }
