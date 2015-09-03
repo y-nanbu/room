@@ -26,7 +26,7 @@ public class UsersService extends ServiceBase {
     /**
      * ユーザIDよりユーザ情報を取得します。
      * @param id ユーザID
-     * @return
+     * @return 単一の検索結果
      */
     public User findByUserId(String id) {
         return jdbcManager.findOne(User.class,
@@ -62,14 +62,7 @@ public class UsersService extends ServiceBase {
         User paramUser = new User();
         BeanUtils.copyProperties(form, paramUser);
 
-        User user = jdbcManager.findOne(User.class,
-                select(
-                        User.ID
-                ).from(
-                        User.TABLE_NAME
-                ).where()
-                        .eq(User.ID, paramUser.getId()));
-
+        User user = findByUserId(form.getId());
         if (user != null) {
             throw new AppException(accessor.getMessage("W0004"));
         }

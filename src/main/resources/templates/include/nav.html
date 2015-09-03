@@ -20,5 +20,9 @@
       <span th:text="${message}"></span>
     </p>
   </div>
+  <div th:if="${param.error}" class="alert alert-danger">
+    <span class="glyphicon glyphicon-remove"></span>
+    <span>正しいユーザIDとパスワードを入力してください。</span>
+  </div>
 </div>
 </div>

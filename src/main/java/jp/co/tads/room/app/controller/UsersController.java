@@ -60,6 +60,6 @@ public class UsersController extends ControllerBase {
         }
 
         setRedirectMessages(redirectAttributes, list(accessor.getMessage("I0001")));
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
