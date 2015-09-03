@@ -32,9 +32,13 @@ public class WsHandler extends TextWebSocketHandler {
 
     private static final String USER_ID = "userId";
 
+    private static final String USER_NAME = "userName";
+
     private static final String CONNECT = "CONNECT";
 
     private static final String DISCONNECT = "DISCONNECT";
+
+    private static final String MESSAGE = "MESSAGE";
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -75,8 +79,14 @@ public class WsHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         // 接続されているセッション（自分も含め）に転送する
+        User user = getUser(session);
+        Map<String, String> sendMessage = new HashMap<>();
+        sendMessage.put(CATEGORY, MESSAGE);
+        sendMessage.put(DATA, message.getPayload());
+        sendMessage.put(USER_NAME, user.getName());
+
         for (Map.Entry<String, WebSocketSession> entry : this.sessionMap_.entrySet()) {
-            entry.getValue().sendMessage(message);
+            entry.getValue().sendMessage(new TextMessage(toJsonString(sendMessage)));
         }
     }
 

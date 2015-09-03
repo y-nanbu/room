@@ -5,9 +5,6 @@
     position: absolute;
     bottom: 0;
 }
-form {
-    margin-bottom: 40px;
-}
 .page-header {
     margin: 0;
     padding-bottom: 0;
@@ -24,4 +21,13 @@ form {
     overflow-y: auto;
     background-color: #f5f5f5;
     border-left: 1px solid #eee;
+}
+.room-btn {
+    margin-bottom: 0;
+}
+.room-textarea {
+    margin-bottom: 4px;
+}
+.well-sm {
+    padding: 3px;
 }
