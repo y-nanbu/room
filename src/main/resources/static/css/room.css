@@ -31,3 +31,6 @@
 .well-sm {
     padding: 3px;
 }
+.panel-body > *:last-child {
+    margin-bottom: 0;
+}

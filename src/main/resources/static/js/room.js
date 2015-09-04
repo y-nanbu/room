@@ -1,4 +1,14 @@
 $(function(){
+  marked.setOptions({
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+  });
+
   var _CONNECT = 'CONNECT';
   var _DISCONNECT = 'DISCONNECT';
   var _MESSAGE = "MESSAGE";
@@ -26,14 +36,17 @@ $(function(){
       var $panelHeader = $('<div/>').attr({class: "panel-heading"});
       var $panelBody = $('<div/>').attr({class: "panel-body"});
 
-      $panelHeader.text(msg.userName);
-      $panelBody.text(msg.data);
+      $panelHeader.text(msg.userName + ' Posted At ' + msg.timestamp);
+      $panelBody.html(marked(msg.data));
 
       $('#room-message-list').prepend(
           $panel
               .append($panelHeader)
               .append($panelBody)
       );
+      var $messageBody = $('#room-message-body');
+      $messageBody.val('');
+      $messageBody.focus();
     }
   };
   ws.onerror = function() {
@@ -44,4 +57,11 @@ $(function(){
     var messageBody = $('#room-message-body').val();
     ws.send(messageBody);
   });
+  $('#room-message-body').keydown(function(e) {
+    if (e.ctrlKey && e.keyCode === 13) {
+      $('#room-send-message-btn').trigger('click');
+    }
+
+  });
+
 });

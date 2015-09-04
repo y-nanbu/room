@@ -34,6 +34,8 @@ public class WsHandler extends TextWebSocketHandler {
 
     private static final String USER_NAME = "userName";
 
+    private static final String TIMESTAMP = "timestamp";
+
     private static final String CONNECT = "CONNECT";
 
     private static final String DISCONNECT = "DISCONNECT";
@@ -84,6 +86,7 @@ public class WsHandler extends TextWebSocketHandler {
         sendMessage.put(CATEGORY, MESSAGE);
         sendMessage.put(DATA, message.getPayload());
         sendMessage.put(USER_NAME, user.getName());
+        sendMessage.put(TIMESTAMP, systimestamp().toString());
 
         for (Map.Entry<String, WebSocketSession> entry : this.sessionMap_.entrySet()) {
             entry.getValue().sendMessage(new TextMessage(toJsonString(sendMessage)));
