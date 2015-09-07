@@ -2,15 +2,10 @@ package jp.co.tads.room.app.ws;
 
 import static jp.co.tads.room.common.Factories.*;
 
-import jp.co.tads.room.app.domain.model.Message;
 import jp.co.tads.room.app.domain.model.User;
-import jp.co.tads.room.infra.jdbc.JdbcManager;
-import jp.co.tads.room.infra.jdbc.SqlBuilder;
 import jp.co.tads.room.infra.security.LoginUserDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -27,9 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class WsHandler extends TextWebSocketHandler {
-
-    @Autowired
-    JdbcManager jdbcManager;
 
     /** セッション一覧 */
     private Map<String, WebSocketSession> sessionMap_ = new ConcurrentHashMap<>();
@@ -87,7 +79,6 @@ public class WsHandler extends TextWebSocketHandler {
     }
 
     @Override
-    @Transactional
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         User user = getUser(session);
         Map<String, String> sendMessage = new HashMap<>();
@@ -99,14 +90,6 @@ public class WsHandler extends TextWebSocketHandler {
         for (Map.Entry<String, WebSocketSession> entry : this.sessionMap_.entrySet()) {
             entry.getValue().sendMessage(new TextMessage(toJsonString(sendMessage)));
         }
-
-        Map<String, Object> values = map();
-        values.put(Message.MESSAGE, message.getPayload());
-        values.put(Message.USER_ID, user.getId());
-        values.put(Message.UPDATED_AT, systimestamp());
-        values.put(Message.CREATED_AT, systimestamp());
-        values.put(Message.LAST_UPDATED, user.getId());
-        jdbcManager.insert(SqlBuilder.into(Message.TABLE_NAME).values(values));
     }
 
     private User getUser(WebSocketSession session) {
