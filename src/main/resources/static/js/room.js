@@ -14,19 +14,18 @@ $(function(){
   var _MESSAGE = "MESSAGE";
 
   var ws = new WebSocket("ws://" + location.host + "/ws");
-  ws.onopen = function() {
-    console.log("on open");
-  };
-  ws.onclose = function() {
-    console.log("on close");
-  };
+  ws.onopen = function() {};
+  ws.onclose = function() {};
   ws.onmessage = function(message) {
     var msg = JSON.parse(message.data);
 
     if (msg.category === _CONNECT) {
       var $connectedUsers = $('#connected-users');
-      $connectedUsers.append($('<li/>').text(msg.data)
-          .addClass("list-group-item").attr("id", msg.userId));
+      $connectedUsers.append(
+          $('<li/>')
+              .text(msg.data)
+              .addClass("list-group-item")
+              .attr("id", msg.userId));
 
     } else if (msg.category === _DISCONNECT) {
       $('#' + msg.userId).remove();
@@ -38,12 +37,8 @@ $(function(){
 
       $panelHeader.text(msg.userName + ' Posted At ' + msg.timestamp);
       $panelBody.html(marked(msg.data));
+      $('#room-message-list').prepend($panel.append($panelHeader).append($panelBody));
 
-      $('#room-message-list').prepend(
-          $panel
-              .append($panelHeader)
-              .append($panelBody)
-      );
       var $messageBody = $('#room-message-body');
       $messageBody.val('');
       $messageBody.focus();
@@ -61,7 +56,6 @@ $(function(){
     if (e.ctrlKey && e.keyCode === 13) {
       $('#room-send-message-btn').trigger('click');
     }
-
   });
 
 });

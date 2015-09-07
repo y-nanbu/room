@@ -2,28 +2,27 @@ package jp.co.tads.room.app.domain.model;
 
 import jp.co.tads.room.annotation.Column;
 import jp.co.tads.room.annotation.Id;
-import jp.co.tads.room.annotation.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.sql.Timestamp;
 
 /**
- * ユーザモデルです。
+ * メッセージのモデルクラスです。
  *
- * @author TAS
+ * @author
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class User {
+public class Message {
 
-    public static final String TABLE_NAME = "users";
+    public static final String TABLE_NAME = "message";
 
     public static final String ID = "id";
 
-    public static final String NAME = "name";
+    public static final String MESSAGE = "message";
 
-    public static final String PASSWORD = "password";
+    public static final String USER_ID = "user_id";
 
     public static final String UPDATED_AT = "updated_at";
 
@@ -35,11 +34,12 @@ public class User {
     @Column("id")
     private String id;
 
-    @Column("name")
-    private String name;
+    @Id
+    @Column("message")
+    private String message;
 
-    @Column("password")
-    private String password;
+    @Column("user_id")
+    private String userId;
 
     @Column("updated_at")
     private Timestamp updatedAt;
