@@ -14,6 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: "jacoco"
+apply plugin: "sonar-runner"
 
 ext {
     bootstrapVersion = '3.2.0'
@@ -65,6 +66,8 @@ dependencies {
     compile("postgresql:postgresql:9.1-901-1.jdbc4")
     compile("org.flywaydb:flyway-core:${flywayVersion}")
 
+    compile("mysql:mysql-connector-java:5.1.36")
+
     // unit test
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
@@ -87,4 +90,14 @@ task production << {
 jacoco {
     toolVersion = "0.7.1.201405082137"
     reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://172.17.20.232:9000/"
+        property "sonar.jdbc.url", "jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
+    }
 }
