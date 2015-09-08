@@ -48,7 +48,3 @@
     background: #eeeeee url("/image/load.gif") no-repeat 50% 50%;
     opacity: 0.6;
 }
-#room-loading > img {
-    display: block;
-    margin: auto auto;
-}
