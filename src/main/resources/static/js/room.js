@@ -48,6 +48,7 @@ $(function(){
     console.log("on error");
   };
 
+  // post message events
   $('#room-send-message-btn').click(function() {
     var messageBody = $('#room-message-body').val();
     ws.send(messageBody);
