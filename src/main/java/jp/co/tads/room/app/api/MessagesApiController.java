@@ -1,5 +1,6 @@
 package jp.co.tads.room.app.api;
 
+import jp.co.tads.room.app.controller.base.ControllerBase;
 import jp.co.tads.room.app.domain.service.messages.MessagesService;
 import jp.co.tads.room.infra.security.LoginUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("api/messages")
-public class MessagesApiController {
+public class MessagesApiController extends ControllerBase {
 
     @Autowired
     MessagesService service;

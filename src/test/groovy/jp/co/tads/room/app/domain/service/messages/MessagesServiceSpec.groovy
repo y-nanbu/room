@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional
 class MessagesServiceSpec extends SpockBase  {
 
     @Autowired
-    MessagesService messagesService;
+    MessagesService service;
 
     @Transactional
     @Rollback
     def "メッセージが1件登録できること"() {
         when:
-        messagesService.addMessage "message", "9999999999999999"
+        service.addMessage "message", "9999999999999999"
 
         then:
         Message message = jdbcManager.findOne(Message.class,
