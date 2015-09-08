@@ -44,6 +44,10 @@ $(function(){
       var $messageBody = $('#room-message-body');
       $messageBody.val('');
       $messageBody.focus();
+
+      $panelBody.find('pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
     }
   };
   ws.onerror = function() {
