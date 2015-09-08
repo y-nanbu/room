@@ -49,9 +49,27 @@ $(function(){
   };
 
   // post message events
+  var sendDbMessage = function(message) {
+    var csrfToken = $('#_csrf').attr("content");
+    var csrfHeader = $('#_csrf_header').attr("content");
+    console.log('csrfToken=' + csrfToken);
+    console.log('csrfHeader=' + csrfHeader);
+    $.ajax({
+      type: 'POST',
+      url: 'http://' + location.host + '/api/messages',
+      dataType: 'JSON',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+      },
+      data: {
+        message: message
+      }
+    });
+  };
   $('#room-send-message-btn').click(function() {
     var messageBody = $('#room-message-body').val();
     ws.send(messageBody);
+    sendDbMessage(messageBody);
   });
   $('#room-message-body').keydown(function(e) {
     if (e.ctrlKey && e.keyCode === 13) {
