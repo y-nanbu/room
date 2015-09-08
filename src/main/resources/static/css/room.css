@@ -34,3 +34,21 @@
 .panel-body > *:last-child {
     margin-bottom: 0;
 }
+
+#room-loading {
+    z-index: 1000000;
+}
+#room-loading {
+    z-index: 10000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #eeeeee url("/image/load.gif") no-repeat 50% 50%;
+    opacity: 0.6;
+}
+#room-loading > img {
+    display: block;
+    margin: auto auto;
+}

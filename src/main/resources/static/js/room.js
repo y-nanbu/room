@@ -14,7 +14,9 @@ $(function(){
   var _MESSAGE = "MESSAGE";
 
   var ws = new WebSocket("ws://" + location.host + "/ws");
-  ws.onopen = function() {};
+  ws.onopen = function() {
+    $('#room-loading').hide();
+  };
   ws.onclose = function() {};
   ws.onmessage = function(message) {
     var msg = JSON.parse(message.data);
