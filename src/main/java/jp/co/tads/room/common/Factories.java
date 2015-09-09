@@ -2,6 +2,7 @@ package jp.co.tads.room.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jp.co.tads.room.App;
 import jp.co.tads.room.exception.AppException;
 import org.springframework.beans.BeanUtils;
 
@@ -102,10 +103,14 @@ public final class Factories {
      * @param object 変換対象のオブジェクト
      * @param <E> 任意の型
      * @return JSON文字列
-     * @throws JsonProcessingException JSON文字列への変換に失敗した場合。
      */
-    public static <E> String toJsonString(E object) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
+    public static <E> String toJsonString(E object) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new AppException(e);
+        }
+
     }
 }
