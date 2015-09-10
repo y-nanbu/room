@@ -17,36 +17,36 @@ import java.sql.Timestamp;
 @Data
 public class User {
 
-    public static final String TABLE_NAME = "users";
+    public static final String TABLE_NAME = "USERS";
 
-    public static final String ID = "id";
+    public static final String ID = "ID";
 
-    public static final String NAME = "name";
+    public static final String NAME = "NAME";
 
-    public static final String PASSWORD = "password";
+    public static final String PASSWORD = "PASSWORD";
 
-    public static final String UPDATED_AT = "updated_at";
+    public static final String UPDATED_AT = "UPDATED_AT";
 
-    public static final String CREATED_AT = "created_at";
+    public static final String CREATED_AT = "CREATED_AT";
 
-    public static final String LAST_UPDATED = "last_updated";
+    public static final String LAST_UPDATED = "LAST_UPDATED";
 
     @Id
-    @Column("id")
+    @Column("ID")
     private String id;
 
-    @Column("name")
+    @Column("NAME")
     private String name;
 
-    @Column("password")
+    @Column("PASSWORD")
     private String password;
 
-    @Column("updated_at")
+    @Column("UPDATED_AT")
     private Timestamp updatedAt;
 
-    @Column("created_at")
+    @Column("CREATED_AT")
     private Timestamp createdAt;
 
-    @Column("last_updated")
+    @Column("LAST_UPDATED")
     private String lastUpdated;
 }

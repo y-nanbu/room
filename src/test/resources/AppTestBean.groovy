@@ -5,10 +5,10 @@ beans {
     xmlns tx:"http://www.springframework.org/schema/tx"
 
     dataSource(DriverManagerDataSource) {
-        driverClassName = "org.postgresql.Driver"
-        url = "jdbc:postgresql://172.17.20.221:5432/room-ut"
-        username = "room-db"
-        password = "room-db"
+        driverClassName = "org.h2.Driver"
+        url = "jdbc:h2:file:~/room-ut"
+        username = "sa"
+        password = ""
     }
 
     context."component-scan"("base-package": "jp.co.tads.room")

@@ -10,43 +10,42 @@ import java.sql.Timestamp;
 /**
  * メッセージのモデルクラスです。
  *
- * @author
+ * @author TAS
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
 public class Message {
 
-    public static final String TABLE_NAME = "message";
+    public static final String TABLE_NAME = "MESSAGE";
 
-    public static final String ID = "id";
+    public static final String ID = "ID";
 
-    public static final String MESSAGE = "message";
+    public static final String MESSAGE = "MESSAGE";
 
-    public static final String USER_ID = "user_id";
+    public static final String USER_ID = "USER_ID";
 
-    public static final String UPDATED_AT = "updated_at";
+    public static final String UPDATED_AT = "UPDATED_AT";
 
-    public static final String CREATED_AT = "created_at";
+    public static final String CREATED_AT = "CREATED_AT";
 
-    public static final String LAST_UPDATED = "last_updated";
+    public static final String LAST_UPDATED = "LAST_UPDATED";
 
     @Id
-    @Column("id")
+    @Column("ID")
     private String id;
 
-    @Id
-    @Column("message")
+    @Column("MESSAGE")
     private String message;
 
-    @Column("user_id")
+    @Column("USER_ID")
     private String userId;
 
-    @Column("updated_at")
+    @Column("UPDATED_AT")
     private Timestamp updatedAt;
 
-    @Column("created_at")
+    @Column("CREATED_AT")
     private Timestamp createdAt;
 
-    @Column("last_updated")
+    @Column("LAST_UPDATED")
     private String lastUpdated;
 }
