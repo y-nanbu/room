@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class JdbcManagerImpl implements JdbcManager {
@@ -28,6 +30,12 @@ public class JdbcManagerImpl implements JdbcManager {
                 throw e;
             }
         }
+    }
+
+    @Override
+    public <T> List<T> findList(Class<T> clazz, SqlBuilder sb) {
+        RowMapper<T> mapper = new BeanPropertyRowMapper<>(clazz);
+        return jdbcTemplate.query(sb.getQuery(), new MapSqlParameterSource(sb.getParams()), mapper);
     }
 
     @Override

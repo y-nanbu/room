@@ -48,3 +48,7 @@
     background: #eeeeee url("/image/load.gif") no-repeat 50% 50%;
     opacity: 0.6;
 }
+
+#room-next-result {
+    text-align: center;
+}

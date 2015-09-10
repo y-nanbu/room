@@ -17,7 +17,9 @@ $(function(){
   ws.onopen = function() {
     $('#room-loading').hide();
   };
-  ws.onclose = function() {};
+  ws.onclose = function() {
+    alert('WebSocketの通信がCLOSEされました。');
+  };
   ws.onmessage = function(message) {
     var msg = JSON.parse(message.data);
 
@@ -33,33 +35,23 @@ $(function(){
       $('#' + msg.userId).remove();
 
     } else if (msg.category === _MESSAGE) {
-      var $panel = $('<div/>').attr({class: "panel panel-default"});
-      var $panelHeader = $('<div/>').attr({class: "panel-heading"});
-      var $panelBody = $('<div/>').attr({class: "panel-body"});
+      addMessage({username: msg.userName, timestamp: msg.timestamp, message: msg.data}, true);
+      $('#room-message-body').val('');
 
-      $panelHeader.text(msg.userName + ' Posted At ' + msg.timestamp);
-      $panelBody.html(marked(msg.data));
-      $('#room-message-list').prepend($panel.append($panelHeader).append($panelBody));
-
-      var $messageBody = $('#room-message-body');
-      $messageBody.val('');
-      $messageBody.focus();
-
-      $panelBody.find('pre').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
+      var existViewMessage = $('#room-message-list').find('.panel');
+      if (existViewMessage.length == 1) {
+        $('#room-next-result-link').attr('data-last-timestamp', msg.timestamp);
+      }
     }
   };
   ws.onerror = function() {
-    console.log("on error");
+    alert('WebSocket通信で予期せぬエラーが発生しました。');
   };
 
   // post message events
   var sendDbMessage = function(message) {
     var csrfToken = $('#_csrf').attr("content");
     var csrfHeader = $('#_csrf_header').attr("content");
-    console.log('csrfToken=' + csrfToken);
-    console.log('csrfHeader=' + csrfHeader);
     $.ajax({
       type: 'POST',
       url: 'http://' + location.host + '/api/messages',
@@ -83,4 +75,46 @@ $(function(){
     }
   });
 
+  $('#room-next-result-link').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: 'http://' + location.host + '/api/messages',
+      dataType: 'JSON',
+      data: {timestamp: $('#room-next-result-link').attr('data-last-timestamp')}
+    }).done(function(data) {
+      if(data[0]) {
+        $.each(data, function() {
+          var $this = $(this)[0];
+
+          addMessage({username: $this.userName, timestamp: $this.updatedAt, message: $this.message});
+          $('#room-next-result-link').attr('data-last-timestamp', $this.updatedAt);
+        });
+      } else {
+        alert('最後の結果を表示しています。');
+      }
+    });
+  });
+
+  function addMessage(params, prepend) {
+    var username = params.username;
+    var timestamp = params.timestamp;
+    var message = params.message;
+
+    var $panel = $('<div/>').attr({class: "panel panel-default"});
+    var $panelHeader = $('<div/>').attr({class: "panel-heading"});
+    var $panelBody = $('<div/>').attr({class: "panel-body"});
+
+    $panelHeader.text(username + ' Posted At ' + timestamp);
+    $panelBody.html(marked(message));
+    if (prepend) {
+      $('#room-message-list').prepend($panel.append($panelHeader).append($panelBody));
+    } else {
+      $('#room-message-list').append($panel.append($panelHeader).append($panelBody));
+    }
+
+    $panelBody.find('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  }
 });

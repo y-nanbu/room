@@ -14,21 +14,7 @@ import java.sql.Timestamp;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class Message {
-
-    public static final String TABLE_NAME = "MESSAGE";
-
-    public static final String ID = "ID";
-
-    public static final String MESSAGE = "MESSAGE";
-
-    public static final String USER_NAME = "USER_NAME";
-
-    public static final String UPDATED_AT = "UPDATED_AT";
-
-    public static final String CREATED_AT = "CREATED_AT";
-
-    public static final String LAST_UPDATED = "LAST_UPDATED";
+public class MessageJson {
 
     @Id
     @Column("ID")
@@ -41,10 +27,10 @@ public class Message {
     private String userName;
 
     @Column("UPDATED_AT")
-    private Timestamp updatedAt;
+    private String updatedAt;
 
     @Column("CREATED_AT")
-    private Timestamp createdAt;
+    private String createdAt;
 
     @Column("LAST_UPDATED")
     private String lastUpdated;

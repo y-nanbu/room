@@ -1,5 +1,7 @@
 package jp.co.tads.room.infra.jdbc;
 
+import java.util.List;
+
 /**
  * データベースに対する操作機能を提供するインターフェースです。
  *
@@ -19,6 +21,9 @@ public interface JdbcManager {
      * @see jp.co.tads.room.infra.jdbc.SqlBuilder
      */
     <T> T findOne(Class<T> clazz, SqlBuilder sb);
+
+
+    <T> List<T> findList(Class<T> clazz, SqlBuilder sb);
 
     /**
      * SqlBuilderにより構築されたSQLを発行します。

@@ -24,10 +24,24 @@ public class SqlBuilder {
         return sb;
     }
 
+    public static SqlBuilder select(int top, String... columnNames) {
+        SqlBuilder sb = new SqlBuilder();
+        List<String> columns = Factories.list(columnNames);
+        sb.addSelect(top, columns);
+        return sb;
+    }
+
     public static SqlBuilder into(String tableName) {
         SqlBuilder sb = new SqlBuilder();
         sb.addInsert(tableName);
         return sb;
+    }
+
+    public SqlBuilder top(int i) {
+        this.query.append("TOP ");
+        this.query.append(String.valueOf(i));
+        this.query.append(" ");
+        return this;
     }
 
     private void columns(List<String> columns) {
@@ -83,6 +97,19 @@ public class SqlBuilder {
         return this;
     }
 
+    public SqlBuilder lt(String column, Object value) {
+        this.query
+                .append(column)
+                .append("< :")
+                .append(column);
+        params.put(column, value);
+        return this;
+    }
+
+    public SqlBuilder desc(String column) {
+        this.query.append(" ORDER BY ").append(column).append(" DESC");
+        return this;
+    }
 
     public Map<String, Object> getParams() {
         return params;
@@ -95,6 +122,13 @@ public class SqlBuilder {
     private void addSelect(List<String> columns) {
         this.query
                 .append("SELECT ")
+                .append(String.join(", ", columns));
+    }
+
+    private void addSelect(int top, List<String> columns) {
+        this.query
+                .append("SELECT ")
+                .append("TOP ").append(String.valueOf(top))
                 .append(String.join(", ", columns));
     }
 
