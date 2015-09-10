@@ -2,6 +2,9 @@ package jp.co.tads.room.app.api;
 
 import static jp.co.tads.room.common.Factories.*;
 
+import jp.co.tads.room.app.controller.base.ControllerBase;
+import jp.co.tads.room.common.PropertiesUtils;
+import jp.co.tads.room.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +22,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("api/publish")
-public class RestPublishController {
+public class RestPublishController extends ControllerBase {
 
     @Autowired
     private SimpMessagingTemplate template;
+
+    @Autowired
+    private PropertiesUtils props;
 
     @RequestMapping(method = RequestMethod.GET)
     public void sendMessage(
@@ -30,7 +36,9 @@ public class RestPublishController {
             @RequestParam("username") String username,
             @RequestParam("key") String key) {
 
-        // TODO: keyで認証すること！
+        if (!props.getProperty("room.rest.key").equals(key)) {
+            throw new AppException(accessor.getMessage("E0001"));
+        }
 
         Map<String, String> pub = new HashMap<>();
         pub.put("message", message);
