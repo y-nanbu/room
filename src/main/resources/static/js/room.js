@@ -13,6 +13,8 @@ $(function(){
   var _DISCONNECT = 'DISCONNECT';
   var _MESSAGE = "MESSAGE";
 
+  var loginUserId = $('#loginUserId').val();
+
   var ws = new WebSocket("ws://" + location.host + "/ws");
   ws.onopen = function() {
     $('#room-loading').hide();
@@ -35,7 +37,7 @@ $(function(){
       $('#' + msg.userId).remove();
 
     } else if (msg.category === _MESSAGE) {
-      addMessage({username: msg.userName, timestamp: msg.timestamp, message: msg.data}, true);
+      addMessage({userid: msg.userId, username: msg.userName, timestamp: msg.timestamp, message: msg.data}, true);
       $('#room-message-body').val('');
 
       var existViewMessage = $('#room-message-list').find('.panel');
@@ -87,7 +89,7 @@ $(function(){
         $.each(data, function() {
           var $this = $(this)[0];
 
-          addMessage({username: $this.userName, timestamp: $this.updatedAt, message: $this.message});
+          addMessage({userid: $this.lastUpdated, username: $this.userName, timestamp: $this.updatedAt, message: $this.message});
           $('#room-next-result-link').attr('data-last-timestamp', $this.updatedAt);
         });
       } else {
@@ -97,6 +99,7 @@ $(function(){
   });
 
   function addMessage(params, prepend) {
+    var userid = params.userid;
     var username = params.username;
     var timestamp = params.timestamp;
     var message = params.message;
@@ -104,6 +107,10 @@ $(function(){
     var $panel = $('<div/>').attr({class: "panel panel-default"});
     var $panelHeader = $('<div/>').attr({class: "panel-heading"});
     var $panelBody = $('<div/>').attr({class: "panel-body"});
+
+    if (userid == loginUserId) {
+    	$panel.attr({class: "panel panel-success"})
+    }
 
     $panelHeader.text(username + ' Posted At ' + timestamp);
     $panelBody.html(marked(message));

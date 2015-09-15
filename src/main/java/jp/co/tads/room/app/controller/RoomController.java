@@ -28,6 +28,7 @@ public class RoomController extends ControllerBase {
         LoginUserDetails loginUserDetails = (LoginUserDetails) sc.getAuthentication().getPrincipal();
 
         setPageTitle(model, loginUserDetails.getUser().getName());
+    	model.addAttribute("loginUserId", loginUserDetails.getUser().getId());
         return "room/room";
     }
 }

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+
 /**
  * WebSocket通信のハンドラーです。
  *
@@ -84,6 +85,7 @@ public class WsHandler extends TextWebSocketHandler {
         Map<String, String> sendMessage = new HashMap<>();
         sendMessage.put(CATEGORY, MESSAGE);
         sendMessage.put(DATA, message.getPayload());
+        sendMessage.put(USER_ID, user.getId());
         sendMessage.put(USER_NAME, user.getName());
         sendMessage.put(TIMESTAMP, systimestamp().toString());
 
