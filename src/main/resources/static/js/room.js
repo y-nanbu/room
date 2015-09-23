@@ -1,4 +1,9 @@
 $(function(){
+
+  if (notify.isSupported) {
+    notify.requestPermission();
+  }
+
   marked.setOptions({
     gfm: true,
     tables: true,
@@ -109,6 +114,8 @@ $(function(){
     $panelBody.html(marked(message));
     if (prepend) {
       $('#room-message-list').prepend($panel.append($panelHeader).append($panelBody));
+      notify.config({autoClose: 10000});
+      notify.createNotification(username, { body: message, icon: "alert.ico"});
     } else {
       $('#room-message-list').append($panel.append($panelHeader).append($panelBody));
     }
